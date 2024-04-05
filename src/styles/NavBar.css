@@ -1,0 +1,192 @@
+/*Variables*/
+:root{
+    --primary-color:#007c53;
+}
+
+.navbar-Container{
+    width: 100dvw;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+
+}
+
+.navBarNocolor{
+    width: 100dvw;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+    background-color: #23232452;
+}
+
+.navbarFlex{
+    height: 10vh;
+    display: flex;
+}
+
+.navBar1{
+    width: 50%;
+    height: 10vh;
+    margin-left: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+.navBarBrand{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.navBarBrand>a{
+    width: 10%;
+    font-weight: 380;
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--bs-body-color);
+    margin-left: .5rem;
+
+}
+
+.logo{
+    width:3rem;
+    height:3rem;
+    position: relative;
+    z-index: 4;
+}
+
+.navBar2{
+    width: 50%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+
+}
+
+.ul_navBar{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: right;
+    margin-right: 4rem;
+    padding-left: 10vw;
+    align-items: center;
+}
+
+.sect{
+    width: 100%;
+    height: 100vw;
+    background-color: rgb(255, 255, 255);
+}
+
+.alt-icon{
+    height: 2rem;
+    width: 2rem;
+    
+}
+
+.li_navBar1Hidden{
+    visibility: hidden;
+}
+
+.li_navBar>a{
+    text-decoration: none;
+    color: black;
+}
+
+.li_navBar7{
+    position:relative;
+    display: flex;
+}
+
+.dropdownContent{
+    display: none;
+  }
+
+.dropdownContentVisible{
+    margin-top: 30px;
+    display: block;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    right: 0;
+    border-radius: 15px;
+}
+
+.ul_menuBar{
+    padding: 0;
+}
+
+.li_menuBar{
+    padding-left: .2em;
+    text-decoration: none;
+    list-style: none;
+    border-radius: 5px;
+    color: black;
+}
+
+.alt-icon2{
+    align-items: center;
+    align-self: center;
+    height: 2rem;
+    width: 2rem;
+    margin-right: .5em;
+}
+
+.menuBar_flex{
+    display: flex;
+}
+
+.p_menuBar{
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+.p_menuBar>*{
+    text-decoration: none;
+    color: black;
+}
+
+/* Hover Effects*/
+.navBarBrand:hover{
+    cursor: pointer;
+}
+.navBarBrand:hover>a{
+    color: #4c0ba0;
+}
+
+ .li_navBar>a:hover,.navBarBrand>a:hover,.li_navBar7:hover{
+    cursor: pointer;
+    color: #4c0ba0;
+} 
+
+.li_menuBar:hover{
+    background-color: rgba(226, 228, 229, 0.329);
+} 
+
+
+@media screen and (max-width: 1270px) {
+    .logo{
+        width:50px;
+        height:50px;
+    }
+
+
+    .li_navBarQuery{
+        width: 0;
+        height: 0;
+        visibility: hidden;
+    }
+}
+
+@media screen and (width <= 30rem) {
+    .navBar1{
+       margin-left: 1rem;
+    }
+
+}

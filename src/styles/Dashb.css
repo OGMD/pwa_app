@@ -1,0 +1,426 @@
+.card {
+    padding: 2em;
+  }
+  
+  .read-the-docs {
+    color: #888;
+  }
+  
+  .circle-background{
+    fill:none;
+    stroke: #ddd;
+  }
+  
+  .circle-progress{
+    fill: none;
+    stroke: #174ea6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /*Smooth circle progress*/
+    transition: stroke-dashoffset 0.5s ease 0s;
+  }
+  
+  .circle-Text{
+    font-size: 3em;
+    font-weight: bold;
+    font-family: 'Poppins';
+  }
+  
+  
+  /*Grid container*/
+  .buttonContainer{
+    grid-area: btns;
+  }
+  .sens1{
+    grid-area: sens1;
+  }
+  .sens2{
+    grid-area: sens2;
+  }
+  .sens3{
+    grid-area: sens3;
+  }
+  .sens4{
+    grid-area: sens4;
+  }
+  .sens5{
+    grid-area: sens5;
+  }
+  .sens6{
+    grid-area: sens6;
+  }
+  .grid-Container{
+    width: 80%;
+    display: inline-block;
+    /*grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    /*background-color: #888;*/
+  }
+  .gridcontainer{
+    width: 80%;
+    display: inline-block;
+    /*grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    /*background-color: #888;*/
+  }
+  
+  
+  .sensItemCard{
+    width: 100%;
+    height: 30%;
+    border-radius: 1em;
+    margin-bottom: 3em;
+    padding: 1em;
+    padding-left: 0;
+    transition: ease-in-out .2s;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+  
+  .sensItemCard2{
+    width: 90%;
+    height: 80%;
+    border-radius: 1em;
+    margin-bottom: 3em;
+    padding: 1em;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+  }
+  .sensItemCard:hover{
+    transform: scale(1.1);
+  }
+  
+  .CardRounded{
+    border-top-left-radius: 4em;
+  }
+  .containerFlexCard{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .SensData{
+    width: 20%;
+    height: 50%;
+    position: relative;
+    position: absolute;
+    z-index: 2;
+    transform: translateX(-2em) translateY(-1em);
+  }
+  
+  .SensInfo{
+    width: 80%;
+    height: 100%;
+    margin-left: 20%;
+  
+  }
+  
+  .sensInfoh2{
+    font-size:1.2em;
+    margin-left: 1em;
+  }
+  
+  .sensInfop{
+    margin-left: 2em;
+    font-weight: 350;
+    text-align: left;
+  }
+
+  .sensIm{
+    margin-left: 0;
+  }
+ .btnml{
+  margin-left: 2rem;
+ }
+  
+  .sensItemCardn{
+    width: 100%;
+    height: 30%;
+    border-radius: 1em;
+    margin-bottom: 3em;
+    padding-left: 0;
+    transition: ease-in-out .2s;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+  
+  .sensItemCardn:hover{
+    transform: scale(1.1);
+    cursor:pointer;
+  }
+  
+  .SensDataN{
+    width: 20%;
+    padding: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: #174ea6;
+    transition: ease-in-out 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .SensDataChangeColor{
+    width: 20%;
+    padding: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    transition: ease-in-out 0.5s;
+    background-color: #4c0ba0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sensh1{
+    font-size: 3rem;
+  }
+  
+  .SensInfoN{
+    width: 80%;
+    height: 100%;
+    padding: 1em;
+  
+  }
+  
+  .sensInfoNh2{
+    font-size:1.2em;
+    text-align: left;
+  }
+  
+  .sensInfNop{
+    font-weight: 350;
+    text-align: left;
+  }
+  
+  /*Media Queries*/
+  @media (min-width: 800px){
+    .grid-Container{
+    grid-template-columns: auto;
+     grid-template-areas: 
+    "sens1 sens2 sens3"
+    "sens4 sens5 sens6"
+    ;
+    }
+  }
+  
+  @media (min-width: 1200px){
+    .gridcontainer{
+      width: 80%;
+      height: 90vh;
+      margin-left: 10%;
+      display: grid;
+      grid-template-columns: .5fr .5fr 1fr 1fr;
+      grid-template-rows: auto; 
+      column-gap: 1em;
+      grid-template-areas: 
+      "btns sens1 sens1 sens2"
+      "sens3 sens3 sens4 sens5";
+      
+    }
+    .grid-Container{
+      width: 80%;
+      height: 90vh;
+      margin-left: 10%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      grid-template-rows: auto; 
+      column-gap: 1em;
+      grid-template-areas: 
+      "sens1 sens1 sens2"
+      "sens3 sens4 sens5"
+      "sens6 sens6 sens7"
+      ;
+      /*background-color: #888;*/
+    }
+    .sensItemCard{
+      width: 95%;
+      height: 80%;
+      border-radius: 1em;
+      margin-bottom: 1em;
+      margin-top: 2em;
+      transition: ease-in-out .3s;
+    }
+  
+    .sensItemCardn{
+      height: 80%;
+      margin-top: 5vh;
+      transition: ease-in-out .3s;
+    }
+  
+    .SensDataChangeColor{
+      height: 100%;
+      padding: 0;
+    }
+    
+    .sens6{
+      margin-left: 1vw;
+      height: 65%;
+    }
+  
+    .sensItemCard:hover,.sensItemCardn:hover{
+      transform: scale(1.02);
+      cursor: pointer;
+    }
+  
+  }
+  
+  
+  /* CSS Button Style */
+  .button-17 {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+/*     margin-left: 3em; */
+    float: left;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+  }
+  .BtnN {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    float: left;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+  }
+  
+  .button-17:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+  }
+  
+  .button-17:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+  }
+  
+  .button-17:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+  }
+  
+  .button-17:not(:disabled) {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+  
+  .button-17:not(:disabled):hover {
+    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+  }
+  
+  .button-17:not(:disabled):focus {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+  
+  .button-17:not(:disabled):active {
+    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+  }
+  
+  .button-17:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+  
+  
+  .row {
+    position: relative;
+  }
+  
+  .container {
+    position: absolute;
+    width: 60vw;
+    height: 90vh;
+    overflow: hidden;
+    background: white;
+    border-radius: 30px;
+    top: -45vh;
+  }
+  
+  .container > img {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .divSens{
+    width: 80%;
+    height: 50vh;
+    margin-left: 10%;
+    color: black;
+  }
+  
+/*   .buttonContainer{
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+ */
+  .flexContent1{
+    margin-bottom: 2rem;
+  }
+
+  .App > h1{
+    text-align: left;
+    margin-left: 10%;
+  }
+
+  .webapp > h1{
+      margin-top: 10vh;
+      margin-bottom: 0;
+      text-align: left;
+      margin-left: 10%;
+  }
