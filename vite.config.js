@@ -1,11 +1,16 @@
-import { defineConfig, transformWithEsbuild} from 'vite'
+import { defineConfig, transformWithEsbuild, loadEnv} from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgr from 'vite-plugin-svgr'
 
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default({mode}) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd())};
+
+  const URL = process.env.VITE_SERVER_URL || "http://localhost:4000";
+return defineConfig({
+  
   plugins: [
     {
       name: 'treat-js-files-as-jsx',
@@ -98,7 +103,7 @@ export default defineConfig({
     proxy:{
       '/socket.io':{
         //target:'http://localhost:4000',
-        target:'https://server-mrqd.onrender.com',
+        target: `${URL}`,
         ws:true
       }
     }
@@ -107,3 +112,4 @@ export default defineConfig({
     port: 3333
   }
 })
+}
