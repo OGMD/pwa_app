@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import ProgressBar from '../components/progressBar';
 //import Footer from '../components/Footer';
 //import Slider from '../components/slider';
-const socket = io("https://esp32server-unvw.onrender.com");
+const socket = io("http://52.55.123.134:3000/");
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
@@ -146,15 +146,33 @@ const sendMessage = () => {
       <p>Last pong: { lastPong || '-' }</p>*/}
   <NavBar/>
   <Modal titulo={"Control Manual"} show={visible} handleClose={() => setVisible(false)}>
-      <button className='button-17' onClick={ OnMachine }>ON</button>
-      <button className='button-17' onClick={ OffMachine }>OFF</button>
-      <button className='button-17' onClick={ OnElevador }>UP</button>
-      <button className='button-17' onClick={ OffElevador }>DOWN</button>
-      <button className='button-17' onClick={ OffEl }>STOP</button>
-      <button className='button-17' onClick={ OnSpin }>OnSpin</button>
-      <button className='button-17' onClick={ OffSpin }>OffSpin</button>
-      <input type='text' placeholder='Numero Vueltas' value={msg} onChange={(e) => setmsg(e.target.value)}/>
-      <button className="button-17" onClick={sendMessage}>Send</button>
+     <div className="gridmodalcontainer">
+      <div className="ledprobe probeModal">
+          <div className="btndiv">
+          <button className='button-31' onClick={ OnMachine }>ON</button>
+          <button className='button-32' onClick={ OffMachine }>OFF</button>
+          </div>
+          </div>
+          <div className="elevprobe probeModal">
+          <div className="btndiv">
+            <button className='button-31' onClick={ OnElevador }>UP</button>
+            <button className='button-32' onClick={ OffElevador }>DOWN</button>
+            <button className='button-31' onClick={ OffEl }>STOP</button>
+          </div>
+          </div>
+          <div className="elevBase probeModal">
+          <div className="btndiv">
+            <button className='button-32' onClick={ OnSpin }>OnSpin</button>
+            <button className='button-31' onClick={ OffSpin }>OffSpin</button>
+          </div>
+          </div>
+          <div className="vueltasProve probeModal">
+          <div className="btndiv">
+            <input type='text' className='inputProbe' placeholder='Vueltas' value={msg} onChange={(e) => setmsg(e.target.value)}/>
+            <button className="button-31" onClick={sendMessage}>Send</button>
+          </div>
+      </div>
+     </div>
   </Modal>
   <h1>WebSocket Connection</h1>
   <div className="grid-Container">

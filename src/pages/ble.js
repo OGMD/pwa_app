@@ -3,211 +3,205 @@ import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import ProgressBar from '../components/progressBar';
 import Footer from '../components/Footer';
-let device,server,service,characteristic, characteristic2, characteristic3, characteristic4, characteristic5, characteristic6, data
-var bleService = '8001e80e-f029-11ee-a951-0242ac120002';
-var ledCharacteristic = '8001ea3e-f029-11ee-a951-0242ac120002';
-//var sensorCharacteristic= '19b10001-e8f2-537e-4f6c-d104768a1214';
-var limtCharacteristic = '8001ee58-f029-11ee-a951-0242ac120002';
-var limbCharacteristic = '8001efc0-f029-11ee-a951-0242ac120002';
-var VueltasCharacteristic = '8001f0e2-f029-11ee-a951-0242ac120002';
-var EmplayeCharacteristic = '8001f1fa-f029-11ee-a951-0242ac120002';
+import Modal from '../components/Modal';
 
+var characteristic2, server, service, characteristic, characteristic3,characteristics;
+var objData;
+const deviceName ='ESP32';
+const bleService = '8001e80e-f029-11ee-a951-0242ac120002';
+const ledCharacteristic = '8001ea3e-f029-11ee-a951-0242ac120002';
+const limtCharacteristic = '8001ee58-f029-11ee-a951-0242ac120002';
+//const limbCharacteristic = '8001efc0-f029-11ee-a951-0242ac120002';
 
-var deviceName ='ESP32';
 
 function BleWeb() {
  
-const [supportsBluetooth, setSupportsBluetooth] = useState(false);
-const [isDisconnected, setIsDisconnected] = useState(true);
-//const [batteryLevel, setBatteryLevel] = useState(null);
-const [limTop, setLimTop] = useState(null);
-const [limBtm, setLimBtm] = useState(null);
-const [vueltas, setVueltas] = useState(null);
-const [Emplaye, setEmplaye] = useState(null);
+  const [supportsBluetooth, setSupportsBluetooth] = useState(false);
+  const [isDisconnected, setIsDisconnected] = useState(true);
+  const [batteryLevel, setBatteryLevel] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [limtVal, setLimtVal] = useState(0);
+  const [limbVal, setLimbVal] = useState(0);
+  const [vueltasVal, setVueltasVal] = useState(0);
+  const [msg,setMsg] = useState('');
+  // When the component mounts, check that the browser supports Bluetooth
+  useEffect(() => {
+    if (navigator.bluetooth) {
+      setSupportsBluetooth(true);
+      console.log("Navegador soporta Web Bluetooth")
+    }
 
-// When the component mounts, check that the browser supports Bluetooth
-useEffect(() => {
-  if (navigator.bluetooth) {
-    setSupportsBluetooth(true);
-    console.log("Navegador soporta Web Bluetooth")
+  }, []);
+
+  /**
+   * Let the user know when their device has been disconnected. 
+   */
+  const onDisconnected = (event) => {
+    alert(`The device ${event.target} is disconnected`);
+    setIsDisconnected(true);
   }
-}, []);
+
+  /**
+   * Update the value shown on the web page when a notification is
+   * received.
+   */
+  const handleCharacteristicValueChanged = (event) => {
+    var decoder = new TextDecoder().decode(event.target.value);
+    setBatteryLevel(event.target.value.getUint16(0));
+    console.log(decoder);
+    console.log(typeof decoder);
+    objData = decoder.split(',');
+    console.log(objData);
+    setVueltasVal(objData[2]);
+    setLimbVal(objData[1]);
+    setLimtVal(objData[0]);
+  }
 
 
+  /**
+   * Attempts to connect to a Bluetooth device and subscribe to
+   * battery level readings using the battery service.
+   */
+  const connectToDeviceAndSubscribeToUpdates = async () => {
+    try {
+      // Search for Bluetooth devices that advertise a battery service
+      const device = await navigator.bluetooth
+        .requestDevice({
+          filters: [{
+            name: deviceName,
+            services: [bleService]
+          }]
+        });
 
-/**
- * Let the user know when their device has been disconnected.
- */
-const onDisconnected = (event) => {
-  alert(`El dispositivo ${event.target} esta desconectado`);
-  setIsDisconnected(true);
-  console.log()
-}
+      setIsDisconnected(false);
 
-/**
- * Update the value shown on the web page when a notification is
- * received.
- */
-const handleCharacteristicValueChanged = (event) => {
-  const newValueReceived = new TextDecoder().decode(event.target.value);
- // setBatteryLevel(newValueReceived);
-  setLimTop(newValueReceived);
-  console.log(newValueReceived);
-}
+      // Add an event listener to detect when a device disconnects
+      device.addEventListener('gattserverdisconnected', onDisconnected);
 
-const handleCharacteristicValueChanged2 = (event) => {
-  const newValueReceived2 = new TextDecoder().decode(event.target.value);
-  setLimBtm(newValueReceived2);
- 
-  console.log(newValueReceived2); 
-}
-const handleCharacteristicValueChanged3 = (event) => {
-  const newValueReceived3 = new TextDecoder().decode(event.target.value);
-  setVueltas(newValueReceived3);
-  
-  console.log(newValueReceived3);
-}
-const handleCharacteristicValueChanged4 = (event) => {
-  const newValueReceived4 = new TextDecoder().decode(event.target.value);
-  setEmplaye(newValueReceived4);
-  console.log(newValueReceived4);
-}
+      // Try to connect to the remote GATT Server running on the Bluetooth device
+       server = await device.gatt.connect();
 
-
-const connectToDeviceAndSubscribeToUpdates = async () => {
-  try {
-
-    const device = await navigator.bluetooth
-      .requestDevice({
-        filters:[{
-          name: deviceName,
-          services: [bleService]
-        }],
-     /*    acceptAllDevices: true, */
-      });
-
-    setIsDisconnected(false);
-
-    // Add an event listener to detect when a device disconnects
-    device.addEventListener('gattserverdisconnected', onDisconnected);
-
-    // Try to connect to the remote GATT Server running on the Bluetooth device
-    server = await device.gatt.connect();
-
-    // Get the battery service from the Bluetooth device
-    service = await server.getPrimaryService(bleService);
-
-    // Get the battery level characteristic from the Bluetooth device
-  //  characteristic = await service.getCharacteristic(sensorCharacteristic);
-    characteristic3 = await service.getCharacteristic(limtCharacteristic);
-    characteristic4 = await service.getCharacteristic(limbCharacteristic);
-    characteristic5 = await service.getCharacteristic(VueltasCharacteristic);
-    characteristic6 = await service.getCharacteristic(EmplayeCharacteristic);
-
-    // Subscribe to battery level notifications
-  //  characteristic.startNotifications();
-    characteristic3.startNotifications();
-    characteristic4.startNotifications();
-    characteristic5.startNotifications();
-    characteristic6.startNotifications();
-
-    // When the battery level changes, call a function
-   // characteristic.addEventListener('characteristicvaluechanged',handleCharacteristicValueChanged);
-    characteristic3.addEventListener('characteristicvaluechanged',handleCharacteristicValueChanged);
-    characteristic4.addEventListener('characteristicvaluechanged',handleCharacteristicValueChanged2);
-    characteristic5.addEventListener('characteristicvaluechanged',handleCharacteristicValueChanged3);
-    characteristic6.addEventListener('characteristicvaluechanged',handleCharacteristicValueChanged4);
-    // Read the battery level value
-   // const reading = await characteristic.readValue();
-    const reading2 = await characteristic3.readValue();
-    const reading3 = await characteristic4.readValue();
-    const reading4 = await characteristic5.readValue();
-    const reading5 = await characteristic6.readValue();
-
-    // Show the initial reading on the web page
-  //  var decoder = new TextDecoder().decode(reading);
-    var decoder2 = new TextDecoder().decode(reading2);
-    var decoder3 = new TextDecoder().decode(reading3);
-    var decoder4 = new TextDecoder().decode(reading4);
-    var decoder5 = new TextDecoder().decode(reading5);
-
-  //  setBatteryLevel(decoder);
-    setLimTop(decoder2);
-    setLimBtm(decoder3);
-    setVueltas(decoder4);
-    setEmplaye(decoder5);
-
-    console.log(decoder2)
-    console.log(decoder3)
-    console.log(decoder4)
-    console.log(decoder5)
-   // console.log(decoder);
-
-
-    characteristic2 = await service.getCharacteristic(ledCharacteristic);
+      // Get the battery service from the Bluetooth device
+       service = await server.getPrimaryService(bleService);
+      //obtener caracteristicas 
     
-  } catch(error) {
-    console.log(`Ocurrio un error: ${error}`);
-  }
-};
+       // Get the battery level characteristic from the Bluetooth device
+      characteristic = await service.getCharacteristic(limtCharacteristic);
+      characteristic.startNotifications();
+      
+      // Subscribe to battery level notifications
 
-async function BLEdisconnect(){
-  try{
+      // When the battery level changes, call a function
+      characteristic.addEventListener('characteristicvaluechanged',
+                                  handleCharacteristicValueChanged);
 
-    console.log("Bluetooth desconectado")
-    return server.disconnect();
-  }
-  catch(error){
-    console.log(error)
-  }
-}
+      
+      // Read the battery level value
+      const reading = await characteristic.readValue();
+      const reading2 = await characteristic.readValue(); 
 
-async function writeData(value){
+      var decoder = new TextDecoder().decode(reading2);
+      
+      // Show the initial reading on the web page
+      setBatteryLevel(reading.getUint24(0) + '%');
+      setLimtVal(decoder);
+      console.log(decoder)
+      
+      characteristic2 = await service.getCharacteristic(ledCharacteristic);
+    } catch(error) {
+      console.log(`There was an error: ${error}`);
+    }
+  };
 
-  if (server && server.connected) {
-    service.getCharacteristic(ledCharacteristic)
-    .then(characteristic2 => {
-        console.log("Caracteristicas encontradas: ", characteristic2.uuid);
-        const data = new Uint8Array([value]);
-        return characteristic2.writeValue(data);
-    })
-    .then(() => {
-        //latestValueSent.innerHTML = value;
-        alert("Valor Escrito en Caracteristicas:" + value);
-    })
-    .catch(error => {
-        alert("Error al escribir en caracteristicas: " + error);
-    });
-  } else {
-      alert ("Bluetooth no esta conectado, no se pueden escribir caracteristicas.")
-      window.alert("Bluetooth no esta conectado no se pueden escribir caracteristicas. \n Conecte el dispositivo!")
+  async function BLEdisconnect(){
+    try{
+  
+      console.log("Bluetooth desconectado")
+      return server.disconnect();
+    }
+    catch(error){
+      console.log(error)
+    }
   }
-}
+
+  async function writeData(value){
+
+    if (server && server.connected) {
+      service.getCharacteristic(ledCharacteristic)
+      .then(characteristic2 => {
+          console.log("Caracteristicas encontradas: ", characteristic2.uuid);
+          console.log(value);
+          console.log(typeof value);
+          const data = new Uint8Array([value]);
+          return characteristic2.writeValue(data);
+      })
+      .then(() => {
+          //latestValueSent.innerHTML = value;
+          alert("Valor Escrito en Caracteristicas:" + value);
+      })
+      .catch(error => {
+          alert("Error al escribir en caracteristicas: " + error);
+      });
+    } else {
+        alert ("Bluetooth no esta conectado, no se pueden escribir caracteristicas.")
+        window.alert("Bluetooth no esta conectado no se pueden escribir caracteristicas. \n Conecte el dispositivo!")
+    }
+  }
 
 return (
   <>
   <NavBar/>
+  <Modal titulo={"Control Manual"} show={visible} handleClose={() => setVisible(false)}>
+     <div className="gridmodalcontainer">
+      <div className="ledprobe probeModal">
+          <div className="btndiv">
+          <button className='button-31' onClick={() => writeData(1) }>ON</button>
+          <button className='button-32' onClick={() => writeData(0) }>OFF</button>
+          </div>
+          </div>
+          <div className="elevprobe probeModal">
+          <div className="btndiv">
+            <button className='button-31' onClick={ () => writeData('U') }>UP</button>
+            <button className='button-32' onClick={ () => writeData('D') }>DOWN</button>
+            <button className='button-31' onClick={ () => writeData('S') }>STOP</button>
+          </div>
+          </div>
+          <div className="elevBase probeModal">
+          <div className="btndiv">
+            <button className='button-32' onClick={ () => writeData('0')}>OnSpin</button>
+            <button className='button-31' onClick={ () => writeData('F') }>OffSpin</button>
+          </div>
+          </div>
+          <div className="vueltasProve probeModal">
+          <div className="btndiv">
+            <input type='text' className='inputProbe' placeholder='Vueltas' value={msg} onChange={(e) => setmsg(e.target.value)}/>
+            <button className="button-31" onClick={() =>writeData(Number(msg))}>Send</button>
+          </div>
+      </div>
+     </div>
+  </Modal>
   <div className="App">
     <h1>BLE Connection</h1>
     <div className="gridcontainer">
         <div className="buttonContainer sensItemCard2">
+        <div className="connect">
+
           {/* {supportsBluetooth && !isDisconnected &&
                 <p>Datos recividos: {[batteryLevel]}</p>
           } */}
           {supportsBluetooth && isDisconnected &&
-            <button className="button-17" onClick={connectToDeviceAndSubscribeToUpdates}>Conectar</button>
+            <button className="button-32" onClick={connectToDeviceAndSubscribeToUpdates}>Conectar</button>
           }
           {!supportsBluetooth &&
             <p>Este navegador no soporta Web Bluetooth</p>
           }
-            <button className="button-17" onClick={() => BLEdisconnect()}>Desconectar</button>
-            <button className="button-17" onClick={() =>writeData(1)} >ON</button>
-            <button className="button-17" onClick={() => writeData(0)} > OFF</button>
+            <button className="button-31" onClick={() => BLEdisconnect()}>Desconectar</button>
+        </div>
         </div>
         <div className="sens1 sensItemCard CardRounded">
           <div className="containerFlexCard">
               <div className="SensData">
-              <ProgressBar className="ProgressBar" percentage={vueltas} circleWidth="140" MaxVal={15}/>
+              <ProgressBar className="ProgressBar" percentage={vueltasVal} circleWidth="140" MaxVal={15}/>
               </div>
               <div className="SensInfo">
                   <h2 className="sensInfoh2">Vueltas Emplaye</h2>
@@ -222,14 +216,14 @@ return (
         <div className="sens2 sensItemCard">
         <div className="containerFlexCard">
               <div className="SensData">
-                <ProgressBar className="ProgressBar" percentage={[vueltas]} circleWidth="140" MaxVal={20}/> 
+                <ProgressBar className="ProgressBar" percentage={vueltasVal} circleWidth="140" MaxVal={20}/> 
               </div>
               <div className="SensInfo">
                   <h2 className="sensInfoh2">Numero de vueltas</h2>
                   <p className="sensInfop">
                       Muestra el numero de vueltas que se necesitan para la carga.
                   </p>
-                <button className="button-17 btnml" role="button">Ver datos</button>
+                <button className="button-17 btnml" role="button" onClick={() => setVisible(true)}>Ver datos</button>
               </div>
           </div>
         </div>
@@ -242,9 +236,9 @@ return (
                       </p>
                   <button className="BtnN" role="button">Ver datos</button>
                   </div>
-                   <div className={[limTop] == 1 ? "SensDataN" : "SensDataChangeColor" }>
+                   <div className={limtVal == 1 ? "SensDataN" : "SensDataChangeColor" }>
                         <h1 className="sensh1">
-                          {limTop}
+                          {limtVal}
                         </h1> 
                   </div> 
               </div>
@@ -258,9 +252,9 @@ return (
                       </p>
                   <button className="BtnN" role="button">Ver datos</button>
                   </div>
-                  <div className={[limBtm] == 1 ? "SensDataN" : "SensDataChangeColor" }>
+                  <div className={limbVal == 1 ? "SensDataN" : "SensDataChangeColor" }>
                         <h1 className="sensh1">
-                          {limBtm}
+                          {limbVal}
                           </h1> 
                   </div>
               </div>
@@ -274,9 +268,9 @@ return (
                       </p>
                   <button className="BtnN" role="button">Ver datos</button>
                   </div>
-                  <div className={[Emplaye] == 1 ? "SensDataN" : "SensDataChangeColor" }>
+                  <div className={limbVal == 1 ? "SensDataN" : "SensDataChangeColor" }>
                   <h1 className="sensh1">
-                          {Emplaye}
+                          {limbVal}
                           </h1> 
                   </div>
               </div>
