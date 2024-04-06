@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import ProgressBar from '../components/progressBar';
 //import Footer from '../components/Footer';
 //import Slider from '../components/slider';
-const socket = io("/");
+const socket = io("https://socket-chat-wkp7.onrender.com");
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
@@ -61,6 +61,10 @@ const DashBoard = () => {
       setIsConnected(false);
       console.log(isConnected);
     });
+
+    socket.on('response', (message) => {
+      console.log(message.msg)
+    })
 
     socket.on('pong', () => {
       setLastPong(new Date().toISOString());
@@ -133,6 +137,7 @@ const DashBoard = () => {
 
 const sendMessage = () => {
   socket.emit('vueltas', msg)
+  socket.emit('ask', msg);
 }
 
   return (

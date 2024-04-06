@@ -8,7 +8,7 @@ import svgr from 'vite-plugin-svgr'
 export default({mode}) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd())};
 
-  const URL = process.env.VITE_SERVER_URL || process.env.VITE_SERVER_PORTF || "http://localhost:4000";
+  const URL = process.env.VITE_SERVER_URL;
 return defineConfig({
   
   plugins: [
@@ -99,15 +99,15 @@ return defineConfig({
       }
     },
   },
-  server:{
+  /*server:{
     proxy:{
       '/socket.io':{
         //target:'http://localhost:4000',
-        target: `${URL}`,
+        target: `"${URL}"`,
         ws:true
       }
     }
-  },
+  },*/
   preview:{
     port: 3333
   }
