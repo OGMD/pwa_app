@@ -8,7 +8,7 @@ import svgr from 'vite-plugin-svgr'
 export default({mode}) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd())};
 
-  const URL = process.env.VITE_SERVER_URL || "http://localhost:4000";
+  const URL = process.env.VITE_SERVER_URL || process.env.VITE_SERVER_PORTF || "http://localhost:4000";
 return defineConfig({
   
   plugins: [
