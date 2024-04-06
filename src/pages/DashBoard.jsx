@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import ProgressBar from '../components/progressBar';
 //import Footer from '../components/Footer';
 //import Slider from '../components/slider';
-const socket = io("https://socket-chat-wkp7.onrender.com");
+const socket = io("https://esp32server-unvw.onrender.com");
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
