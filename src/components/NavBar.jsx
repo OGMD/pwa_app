@@ -94,7 +94,7 @@ const NavBar = () => {
                 { show ? 
                   (<div className={ show == true ? "dropdownContentVisible" : "dropdownContent" }>
                     <ul className="ul_menuBar" id="ul_menuBar">
-                      {
+                      {/*{
                         navBarElements == true ? (
                           <>
                           <li className="li_menuBar1 li_menuBar">
@@ -140,7 +140,7 @@ const NavBar = () => {
                           </>
                         
                         ) : null
-                      }
+                      }*/}
                       <li className="li_menuBar1 li_menuBar">
                         <Link to="/Dashboard">
                           <div className="menuBar_flex">

@@ -8,7 +8,6 @@ import BleAPP from './pages/ble2'
 import BluetoothComponent from './pages/ble3'
 import './App.css'
 import './styles/NavBar.css'
-import './styles/Footer.css'
 import './styles/Dashb.css'
 import './styles/modal.css'
 

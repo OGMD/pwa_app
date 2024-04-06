@@ -3,7 +3,9 @@ import React from 'react'
 function Footer() {
   return (
     <div className='footer'>
-        OGMD © copyrigth - All rigths reserved
+      <div className="footercontainer">
+          OGMD © copyrigth - All rigths reserved
+      </div>
     </div>
   )
 }

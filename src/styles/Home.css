@@ -196,9 +196,26 @@
     margin-bottom: .5rem;
   }
 
- 
+  @media only screen and (max-width:800px){
+    .homeContainer{
+      height: 160vh;
+    }
+    .homegrid {
+      grid-template-columns: 1fr;
+      grid-template-rows: .8fr 1fr 2fr 2fr 2fr;
+      grid-template-areas: 
+        "header"
+        "device"
+        "wifi"
+        "BLE"
+        "settings";
+    }
+  }
 
   @media only screen and (max-width: 600px) {
+    .homeContainer{
+      height: 200vh;
+    }
     .homegrid {
         grid-template-columns: 1fr;
         grid-template-rows: .8fr 1fr 2fr 2fr 2fr;

@@ -184,9 +184,13 @@
     }
 }
 
-@media screen and (width <= 30rem) {
+@media screen and (width <= 60rem) {
     .navBar1{
        margin-left: 1rem;
+    }
+
+    .ul_navBar{
+        margin-right: 1rem;
     }
 
 }

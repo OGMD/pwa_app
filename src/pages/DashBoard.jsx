@@ -174,7 +174,7 @@ const sendMessage = () => {
       </div>
      </div>
   </Modal>
-  <h1>WebSocket Connection</h1>
+  <h1 className='socketh1'>WebSocket Connection</h1>
   <div className="grid-Container">
       <div className="sens1 sensItemCard CardRounded">
         <div className="containerFlexCard">
