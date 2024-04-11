@@ -10,9 +10,7 @@ import './App.css'
 import './styles/NavBar.css'
 import './styles/Dashb.css'
 import './styles/modal.css'
-
 function App() {
-
   function useMediaQuery (query){
     const mediaQuery = useMemo(() => window.matchMedia(query), [query]);
     const [match, setMatch] = useState(mediaQuery.matches);
@@ -28,14 +26,12 @@ function App() {
     }, [mediaQuery])
     return match
   }
-
   function useMediaQueries(){
     const md = useMediaQuery("(min-width: 800px)")
     const lg = useMediaQuery("(min-width: 1200px)")
 
     return {md, lg};
   }
-
   function ResponsiveComponent(){
     const {md, lg} = useMediaQueries();
 
@@ -47,7 +43,6 @@ function App() {
     }
     return console.log("mobile device")
   }
-
   return (
     <>
     <Routes>

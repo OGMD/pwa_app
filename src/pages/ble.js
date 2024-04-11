@@ -137,10 +137,10 @@ function BleWeb() {
       })
       .then(() => {
           //latestValueSent.innerHTML = value;
-          alert("Valor Escrito en Caracteristicas:" + value);
+          console.log("Valor Escrito en Caracteristicas:" + value);
       })
       .catch(error => {
-          alert("Error al escribir en caracteristicas: " + error);
+          console.log("Error al escribir en caracteristicas: " + error);
       });
     } else {
         alert ("Bluetooth no esta conectado, no se pueden escribir caracteristicas.")
@@ -161,15 +161,15 @@ return (
           </div>
           <div className="elevprobe probeModal">
           <div className="btndiv">
-            <button className='button-31' onClick={ () => writeData('U') }>UP</button>
-            <button className='button-32' onClick={ () => writeData('D') }>DOWN</button>
-            <button className='button-31' onClick={ () => writeData('S') }>STOP</button>
+            <button className='button-31' onClick={ () => writeData(53) }>UP</button>{/* U */}
+            <button className='button-32' onClick={ () => writeData(54) }>DOWN</button>{/* D */}
+            <button className='button-31' onClick={ () => writeData(55) }>STOP</button>{/* S */}
           </div>
           </div>
           <div className="elevBase probeModal">
           <div className="btndiv">
-            <button className='button-32' onClick={ () => writeData('0')}>OnSpin</button>
-            <button className='button-31' onClick={ () => writeData('F') }>OffSpin</button>
+            <button className='button-32' onClick={ () => writeData(56)}>OnSpin</button>{/* O */}
+            <button className='button-31' onClick={ () => writeData(57) }>OffSpin</button>{/* F */}
           </div>
           </div>
           <div className="vueltasProve probeModal">
@@ -201,7 +201,7 @@ return (
         <div className="sens1 sensItemCard CardRounded">
           <div className="containerFlexCard">
               <div className="SensData">
-              <ProgressBar className="ProgressBar" percentage={vueltasVal} circleWidth="140" MaxVal={15}/>
+              <ProgressBar className="ProgressBar" percentage={vueltasVal*(600/20)} circleWidth="140" MaxVal={msg*(600/20)}/>
               </div>
               <div className="SensInfo">
                   <h2 className="sensInfoh2">Vueltas Emplaye</h2>
@@ -216,7 +216,7 @@ return (
         <div className="sens2 sensItemCard">
         <div className="containerFlexCard">
               <div className="SensData">
-                <ProgressBar className="ProgressBar" percentage={vueltasVal} circleWidth="140" MaxVal={20}/> 
+                <ProgressBar className="ProgressBar" percentage={vueltasVal} circleWidth="140" MaxVal={msg}/> 
               </div>
               <div className="SensInfo">
                   <h2 className="sensInfoh2">Numero de vueltas</h2>

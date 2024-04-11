@@ -179,7 +179,7 @@ const sendMessage = () => {
       <div className="sens1 sensItemCard CardRounded">
         <div className="containerFlexCard">
             <div className="SensData">
-             <ProgressBar className="ProgressBar" percentage={sens4} circleWidth="140" MaxVal={4096}/>
+             <ProgressBar className="ProgressBar" percentage={sens4*(600/20)} circleWidth="140" MaxVal={msg*(600/20)}/>
             </div>
             <div className="SensInfo">
                 <h2 className="sensInfoh2">Vueltas Emplaye</h2>
@@ -194,7 +194,7 @@ const sendMessage = () => {
       <div className="sens2 sensItemCard">
       <div className="containerFlexCard">
             <div className="SensData">
-              <ProgressBar className="ProgressBar" percentage={sens4} circleWidth="140" MaxVal={4096}/> 
+              <ProgressBar className="ProgressBar" percentage={sens4} circleWidth="140" MaxVal={msg}/> 
             </div>
             <div className="SensInfo">
                 <h2 className="sensInfoh2">Numero de vueltas</h2>

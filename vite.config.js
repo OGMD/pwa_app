@@ -33,7 +33,7 @@ return defineConfig({
         display_override: ['window-controls-overlay'],
         lang: 'en-En',
         name: 'FlexeSeal',
-        short_name: 'EjemploV1',
+        short_name: 'FlexeSealV1.3',
         description: 'EjemploPWA',
         theme_color: '#ffffff',
         background_color: '#ffffff',
@@ -109,7 +109,7 @@ return defineConfig({
     }
   },*/
   preview:{
-    port: 3333
+    port: 3331
   }
 })
 }
